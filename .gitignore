@@ -1,0 +1,11 @@
+# NPM dependencies
+node_modules/
+
+# vscode settings
+.vscode
+
+# composer dependencies
+vendor/
+
+# tests coverage report
+tests/coverage

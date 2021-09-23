@@ -1,0 +1,26 @@
+{
+  "name": "rahulsprajapati/wp-plugin-template",
+  "description": "wp-plugin-template",
+  "authors": [
+    {
+      "name": "Rahul Prajapati",
+      "email": "rahul.prajapati@live.in",
+      "homepage": "https://github.com/rahulsprajapati",
+      "role": "Developer"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "prefer-stable": true,
+  "homepage": "https://github.com/rahulsprajapati/wp-plugin-template",
+  "support": {
+    "issues": "https://github.com/rahulsprajapati/wp-plugin-template/issues",
+    "source": "https://github.com/rahulsprajapati/wp-plugin-template/"
+  },
+  "minimum-stability": "dev",
+  "require-dev": {
+    "automattic/vipwpcs": "^2.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "phpcompatibility/php-compatibility": "^9.3",
+    "wp-phpunit/wp-phpunit": "^5.8"
+  }
+}

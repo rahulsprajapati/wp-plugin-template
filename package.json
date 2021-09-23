@@ -1,0 +1,31 @@
+{
+  "name": "wp-plugin-template",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "@wordpress/env": "^4.1.1",
+    "grunt-wp-i18n": "^1.0.3"
+  },
+  "scripts": {
+    "makepot": "grunt makepot",
+    "lint": "./vendor/bin/phpcs --standard=phpcs.xml",
+    "wp-env": "wp-env",
+    "start": "wp-env start",
+    "stop": "wp-env stop",
+    "status": "docker ps",
+    "restart": "wp-env restart",
+    "cleanup": "wp-env clean all",
+    "destroy": "wp-env destroy",
+    "container": "wp-env run",
+    "cli": "wp-env run cli",
+    "tests-cli": "wp-env run tests-cli",
+    "logs": "wp-env logs",
+    "phpunit": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/wp-plugin-template/phpunit.xml.dist'",
+    "coverage": "wp-env run phpunit 'phpdbg -qrr /usr/local/bin/phpunit -c /var/www/html/wp-content/plugins/wp-plugin-template/phpunit.xml.dist --coverage-clover=/var/www/html/wp-content/plugins/wp-plugin-template/clover.xml'",
+    "coverage-html": "wp-env run phpunit 'phpdbg -qrr /usr/local/bin/phpunit -c /var/www/html/wp-content/plugins/wp-plugin-template/phpunit.xml.dist --coverage-html=/var/www/html/wp-content/plugins/wp-plugin-template/tests/coverage/html'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
