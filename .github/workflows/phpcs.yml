@@ -1,0 +1,29 @@
+name:  PHP CodeSniffer
+
+on: [ push, pull_request ]
+
+jobs:
+    phpcs:
+      name: 'PHPCS Run'
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        - name: Use desired version of NodeJS
+          uses: actions/setup-node@v2
+          with:
+              node-version: 14
+              cache: npm
+
+        - name: Install dependencies
+          uses: php-actions/composer@v6
+
+        - name: Npm install and build
+          run: |
+              npm install
+
+        - name: Run PHPCS inspection
+          run: |
+              npm run lint
