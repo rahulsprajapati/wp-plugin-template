@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1632319133">
-  <project timestamp="1632319133">
-    <file name="/var/www/html/wp-content/plugins/wp-plugin-template/inc/namespace.php">
+<coverage generated="1632847106">
+  <project timestamp="1632847106">
+    <file name="/home/runner/work/wp-plugin-template/wp-plugin-template/inc/namespace.php">
       <line num="16" type="stmt" count="0"/>
       <line num="17" type="stmt" count="0"/>
       <line num="26" type="stmt" count="0"/>

@@ -1,0 +1,63 @@
+name: SonarCloud
+
+on: [ push, pull_request ]
+
+# Cancels all previous workflow runs for pull requests that have not completed.
+concurrency:
+    # The concurrency group contains the workflow name and the branch name for pull requests
+    # or the commit hash for any other events.
+    group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
+    cancel-in-progress: true
+
+jobs:
+    code-coverage:
+        name: Code Coverage Upload
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+
+            - name: Check test coverage
+              id: test-coverage
+              uses: johanvanhelden/gha-clover-test-coverage-check@v1
+              with:
+                filename: "clover.xml"
+                percentage: 95
+                exit: "false"
+
+            - name: Setup Sonar Scanner
+              run: |
+                wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip
+                unzip sonar-scanner-cli-4.5.0.2216-linux
+                echo "$(pwd)/sonar-scanner-4.5.0.2216-linux/bin" >> $GITHUB_PATH
+
+            - name: Branch Scan
+              if: github.event_name == 'push'
+              env:
+                GIT_BRANCH: ${{ env.GIT_BRANCH }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              run: sonar-scanner -X
+                -D project.settings=sonar-project.properties
+                -D sonar.branch.name="$GIT_BRANCH"
+                -D sonar.login="$SONAR_TOKEN"
+
+            - name: Pull Request Scan
+              if: github.event_name == 'pull_request'
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                PULL_REQUEST_NUMBER: ${{ github.event.number }}
+              run: sonar-scanner -X
+                -D project.settings=sonar-project.properties
+                -D sonar.pullrequest.key=$PULL_REQUEST_NUMBER
+                -D sonar.pullrequest.branch=${GITHUB_HEAD_REF}
+                -D sonar.pullrequest.base=${GITHUB_BASE_REF}
+                -D sonar.login="$SONAR_TOKEN"
+
+            - name: Coverage Acceptable Check
+              if: ( steps.test-coverage.outputs.coverage-acceptable == false )
+              run: "exit 1;"
+
