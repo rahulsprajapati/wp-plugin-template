@@ -1,0 +1,32 @@
+name: Init Project
+
+on:
+  create:
+    branches:
+      - main
+
+jobs:
+    build:
+      name: 'Rename Template repo'
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        - name: Use desired version of NodeJS
+          uses: actions/setup-node@v2
+          with:
+              node-version: 14
+              cache: npm
+
+        - name: Npm install and build
+          run: |
+              npm install
+
+        - name: Rename repo slug and namespace 
+          run: |
+              echo "SLUG"
+              echo ${{ github.event.repository.name }}
+              echo "Namespace"
+              echo ${{ github.event.repository.name }} | tr '[a-z]' '[A-Z]' | sed 's/-/_/g'
