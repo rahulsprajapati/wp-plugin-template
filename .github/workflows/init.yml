@@ -1,6 +1,9 @@
 name: Init Project
 
-on: create
+on:
+  create:
+    branches:
+      - main
 
 jobs:
     build:
