@@ -3,12 +3,13 @@
 	<description>WordPress plugin phpcs rules for Plugin.</description>
 
 	<!-- Check all files in this directory and the directories below it. -->
-	<file>.</file>
+	<file>./plugin.php</file>
+	<file>inc</file>
+	<file>tests</file>
 
 	<!-- Exclude folders. -->
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
-	<exclude-pattern>tests/*</exclude-pattern>
 
 	<!-- Pass some flags to PHPCS:
 		p flag: Show progress of the run.
